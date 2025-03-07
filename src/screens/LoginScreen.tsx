@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native'; // Correção: useNavigation de @react-navigation/native
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { login } from '../services/auth';
 import { RootStackParamList } from '../types/navigation';
@@ -19,7 +19,7 @@ const LoginScreen = () => {
       if (token) {
         // Login bem-sucedido
         await AsyncStorage.setItem('userToken', token);
-        navigation.replace('Cargas');
+        navigation.replace('Menu');
       } else {
         // Credenciais inválidas ou erro na API
         Alert.alert('Erro', 'Credenciais inválidas. Verifique seu email e senha.');
@@ -48,7 +48,7 @@ const LoginScreen = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button title="Entrar" onPress={handleLogin} />
     </View>
   );
 };
