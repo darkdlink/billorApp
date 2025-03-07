@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, Alert, ActivityIndicator } from 'react-native'; // Importe ActivityIndicator
+import { View, Text, TextInput, Button, StyleSheet, Image, Alert, ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth'; // Importe o módulo de autenticação do Firebase
 import { fetchUserProfile, updateUserProfile, changePassword } from '../services/usuarios'; // Suponha um arquivo de serviço
 import ButtonComponent from '../components/Button';
@@ -96,7 +96,16 @@ const PerfilScreen = () => {
       {loading ? (
         <ActivityIndicator size="large" color="#007AFF" />
       ) : user ? (
-        <>
+        <View style={styles.contentContainer}>
+              {user.fotoURL && (
+                <Image source={{ uri: user.fotoURL }} style={styles.profileImage} />
+              )}
+              {image && (
+                <Image source={{ uri: image }} style={styles.profileImage} />
+              )}
+              <Button title="Tirar Foto" onPress={takePhoto} />
+              <Button title="Escolher da Galeria" onPress={chooseFromLibrary} />
+               <Button title="Upload Image" onPress={handleUploadImage} />
           <TextInput
             style={styles.input}
             placeholder="Nome"
@@ -118,12 +127,6 @@ const PerfilScreen = () => {
             onChangeText={text => setUser({ ...user, telefone: text })}
             keyboardType="phone-pad"
           />
-              {image && (
-                <Image source={{ uri: image }} style={styles.image} />
-              )}
-              <Button title="Tirar Foto" onPress={takePhoto} />
-              <Button title="Escolher da Galeria" onPress={chooseFromLibrary} />
-               <Button title="Upload Image" onPress={handleUploadImage} />
 
           <TextInput
             placeholder="Nova Senha"
@@ -134,7 +137,7 @@ const PerfilScreen = () => {
           <ButtonComponent title="Atualizar Perfil" onPress={handleUpdateProfile} />
           <ButtonComponent title="Alterar Senha" onPress={handleChangePassword} />
           <ButtonComponent title="Logout" onPress={handleLogout} />
-        </>
+        </View>
       ) : (
         <Text>Erro ao carregar perfil.</Text>
       )}
@@ -147,6 +150,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+    contentContainer: {
+    alignItems: 'center', // Centraliza os itens horizontalmente
+    },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -160,17 +166,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    width: '100%', // Ocupa toda a largura disponível
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 150,
+    height: 150,
+    borderRadius: 75, // Metade da largura e altura para torná-la circular
     marginBottom: 10,
-  },
-  image: {  // Adicione este estilo
-    width: 200,
-    height: 200,
-    marginBottom: 20,
   },
 });
 

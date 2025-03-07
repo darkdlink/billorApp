@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
@@ -24,9 +24,18 @@ const MenuScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Menu</Text>
-      <Button title="Meu Perfil" onPress={navegarParaPerfil} />
-      <Button title="Chat" onPress={navegarParaChat} />
-      <Button title="Gerenciador de Cargas" onPress={navegarParaCargas} />
+
+      <TouchableOpacity style={styles.button} onPress={navegarParaPerfil}>
+        <Text style={styles.buttonText}>Meu Perfil</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={navegarParaChat}>
+        <Text style={styles.buttonText}>Chat</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={navegarParaCargas}>
+        <Text style={styles.buttonText}>Gerenciador de Cargas</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,11 +46,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#F5FCFF',  // Cor de fundo
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
+    marginBottom: 40,
+    textAlign: 'center',
+    color: '#333333',  // Cor do texto
+  },
+  button: {
+    backgroundColor: '#4CAF50',  // Cor de fundo do botão
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
     marginBottom: 20,
+    elevation: 3,  // Sombra (Android)
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#FFFFFF',  // Cor do texto do botão
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
