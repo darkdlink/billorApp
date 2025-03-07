@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, Alert, ActivityIndicator } from 'react-native';
-import auth from '@react-native-firebase/auth'; // Importe o módulo de autenticação do Firebase
-import { fetchUserProfile, updateUserProfile, changePassword } from '../services/usuarios'; // Suponha um arquivo de serviço
+import auth from '@react-native-firebase/auth'; 
+import { fetchUserProfile, updateUserProfile, changePassword } from '../services/usuarios'; 
 import ButtonComponent from '../components/Button';
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 
@@ -22,7 +22,7 @@ const PerfilScreen = () => {
     const loadUserProfile = async () => {
       setLoading(true);
       try {
-        const data = await fetchUserProfile(); // Buscar os dados do usuário da API
+        const data = await fetchUserProfile(); 
         setUser(data);
       } catch (error) {
         console.error('Erro ao buscar perfil do usuário:', error);
@@ -37,7 +37,6 @@ const PerfilScreen = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      // Aqui você chamaria a função para atualizar o perfil do usuário na API
       if (user) {
         await updateUserProfile(user);
         Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
@@ -50,7 +49,6 @@ const PerfilScreen = () => {
 
   const handleChangePassword = async () => {
     try {
-      // Aqui você chamaria a função para alterar a senha do usuário na API
       await changePassword(newPassword);
       Alert.alert('Sucesso', 'Senha alterada com sucesso!');
       setNewPassword('');
@@ -62,8 +60,7 @@ const PerfilScreen = () => {
 
   const handleLogout = async () => {
     try {
-      await auth().signOut(); // Desconectar do Firebase
-      // Redirecionar para a tela de login (usando navigation.replace)
+      await auth().signOut(); 
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
       Alert.alert('Erro', 'Ocorreu um erro ao fazer logout. Tente novamente mais tarde.');
@@ -118,7 +115,7 @@ const PerfilScreen = () => {
             value={user.email}
             onChangeText={text => setUser({ ...user, email: text })}
             keyboardType="email-address"
-            editable={false}  // Email não pode ser alterado
+            editable={false} 
           />
           <TextInput
             style={styles.input}
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
     contentContainer: {
-    alignItems: 'center', // Centraliza os itens horizontalmente
+    alignItems: 'center',
     },
   title: {
     fontSize: 24,
@@ -166,12 +163,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    width: '100%', // Ocupa toda a largura disponível
+    width: '100%', 
   },
   profileImage: {
     width: 150,
     height: 150,
-    borderRadius: 75, // Metade da largura e altura para torná-la circular
+    borderRadius: 75, 
     marginBottom: 10,
   },
 });

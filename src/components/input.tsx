@@ -5,7 +5,7 @@ interface InputProps {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
-  keyboardType?: 'default' | 'number-pad' | 'email-address' | 'phone-pad'; // Tipos de teclado
+  keyboardType?: 'default' | 'number-pad' | 'email-address' | 'phone-pad';
   secureTextEntry?: boolean;
   style?: StyleProp<ViewStyle>;
 }

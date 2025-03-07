@@ -46,26 +46,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#F5FCFF',  // Cor de fundo
+    backgroundColor: '#F5FCFF',  
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 40,
     textAlign: 'center',
-    color: '#333333',  // Cor do texto
+    color: '#333333',  
   },
   button: {
-    backgroundColor: '#4CAF50',  // Cor de fundo do botão
+    backgroundColor: '#4CAF50', 
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8,
     marginBottom: 20,
-    elevation: 3,  // Sombra (Android)
+    elevation: 3,  
   },
   buttonText: {
     fontSize: 18,
-    color: '#FFFFFF',  // Cor do texto do botão
+    color: '#FFFFFF',  
     fontWeight: 'bold',
     textAlign: 'center',
   },

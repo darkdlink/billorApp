@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image, StyleSheet, ActivityIndicator, Platform, Alert } from 'react-native'; // Adicione Alert à importação
+import { View, Text, Button, Image, StyleSheet, ActivityIndicator, Platform, Alert } from 'react-native'; 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import { uploadDocument } from '../services/cargas';  // Importe o uploadDocument
+import { uploadDocument } from '../services/cargas';  
 
 const DocumentosScreen = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -69,9 +69,9 @@ const DocumentosScreen = () => {
 
     setUploading(true);
     try {
-      await uploadDocument(image);  // Envie a imagem para o backend
+      await uploadDocument(image);  
       Alert.alert('Sucesso', 'Documento enviado com sucesso!');
-      setImage(null);  // Limpe a imagem após o upload
+      setImage(null);  
     } catch (error) {
       console.error('Erro ao enviar documento:', error);
       Alert.alert('Erro', 'Ocorreu um erro ao enviar o documento. Tente novamente mais tarde.');

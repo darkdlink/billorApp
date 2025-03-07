@@ -1,7 +1,7 @@
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
-    ['module:react-native-dotenv', {  // Coloque isso no topo
+    ['module:react-native-dotenv', {  
       moduleName: '@env',
       path: '.env',
       blacklist: null,
@@ -9,6 +9,5 @@ module.exports = {
       safe: false,
       allowUndefined: false,
     }],
-    // Outros plugins
   ],
 };

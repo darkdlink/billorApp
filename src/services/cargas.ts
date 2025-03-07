@@ -1,7 +1,6 @@
-// src/services/cargas.ts
 import axios from 'axios';
 import { API_URL } from '../config';
-import { mockCargas } from './mockCargas'; // Importe os dados mock
+import { mockCargas } from './mockCargas'; 
 import { Carga } from '../types/cargas';
 
 export interface FetchCargasParams {
@@ -27,7 +26,7 @@ export const fetchCargas = async (params: FetchCargasParams = {}): Promise<Carga
       }
 
       resolve(filteredCargas);
-    }, 500); // Simula um atraso da API
+    }, 500); 
   });
 };
 

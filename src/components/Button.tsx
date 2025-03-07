@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle } from 'react-
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  style?: StyleProp<ViewStyle>; // Permite estilos adicionais
+  style?: StyleProp<ViewStyle>; 
 }
 
 const Button = ({ title, onPress, style }: ButtonProps) => {
@@ -17,7 +17,7 @@ const Button = ({ title, onPress, style }: ButtonProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007AFF', // Cor azul padrão
+    backgroundColor: '#007AFF', 
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,

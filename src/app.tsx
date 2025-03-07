@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AppNavigator from './navigation/AppNavigator';
-import firebase from '@react-native-firebase/app'; // Mantenha esta importação
+import firebase from '@react-native-firebase/app'; 
 import { LogBox } from 'react-native';
 
 import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, FIREBASE_MEASUREMENT_ID } from '@env';

@@ -29,7 +29,6 @@ const CargasScreen = () => {
       setCargas(data);
     } catch (error) {
       console.error('Erro ao buscar cargas:', error);
-      // Lidar com o erro (ex: exibir mensagem ao usuário)
     } finally {
       setLoading(false);
     }
@@ -37,7 +36,7 @@ const CargasScreen = () => {
 
   useEffect(() => {
     loadCargas();
-  }, [loadCargas]); // loadCargas como dependência
+  }, [loadCargas]); 
 
  const handleCargaPress = (cargaId: string) => {
     navigation.navigate('DetalhesCarga', { cargaId });

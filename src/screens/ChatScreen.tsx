@@ -22,7 +22,6 @@ const ChatScreen = () => {
 
   const onSend = useCallback((messages: IMessage[] = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
-    // Aqui você enviaria a mensagem para o backend
   }, []);
 
   return (

@@ -3,12 +3,10 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import Card from '../components/Card';
-import { mockCargas } from '../services/mockCargas'; // Importe os dados mock das cargas
+import { mockCargas } from '../services/mockCargas'; 
 
-// Define o tipo para os params da rota
 type DetalhesCargaRouteProp = RouteProp<RootStackParamList, 'DetalhesCarga'>;
 
-// Define o tipo para as props do componente
 interface Props {
   route: DetalhesCargaRouteProp;
 }
@@ -17,7 +15,6 @@ const DetalhesCargaScreen = ({ route }: Props) => {
   const { cargaId } = route.params;
   const navigation = useNavigation();
 
-  // Encontra a carga com base no ID
   const carga = mockCargas.find(c => c.id === cargaId);
 
   if (!carga) {

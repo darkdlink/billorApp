@@ -21,7 +21,6 @@ const LoginScreen = () => {
         await AsyncStorage.setItem('userToken', token);
         navigation.replace('Menu');
       } else {
-        // Credenciais inválidas ou erro na API
         Alert.alert('Erro', 'Credenciais inválidas. Verifique seu email e senha.');
       }
     } catch (error: any) {

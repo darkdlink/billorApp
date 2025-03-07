@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { createUser } from '../services/auth';
 import { RootStackParamList } from '../types/navigation';  
 
-type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;  // Defina o tipo
+type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;  
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -17,11 +17,9 @@ const RegisterScreen = () => {
     try {
       const token = await createUser(email, password);
       if (token) {
-        // Registro bem-sucedido
         await AsyncStorage.setItem('userToken', token);
         navigation.replace('Cargas');
       } else {
-        // Erro ao cadastrar
         Alert.alert('Erro', 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.');
       }
     } catch (error: any) {
