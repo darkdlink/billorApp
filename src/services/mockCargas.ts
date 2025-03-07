@@ -11,6 +11,7 @@ export const mockCargas: Carga[] = [
     peso: 1000,
     tipo: 'Eletrônicos',
     status: 'disponivel',
+    descricao: "Transporte de materiais eletronicos para as Lojas Americanas"
   },
   {
     id: '2',
@@ -20,6 +21,7 @@ export const mockCargas: Carga[] = [
     peso: 1500,
     tipo: 'Alimentos',
     status: 'em_andamento',
+    descricao: "Transporte de alimentos não perecíveis para as Lojas Americanas"
   },
   {
     id: '3',
@@ -29,6 +31,7 @@ export const mockCargas: Carga[] = [
     peso: 800,
     tipo: 'Vestuário',
     status: 'concluida',
+      descricao: "Transporte de roupas para as Lojas Americanas"
   },
   {
     id: '4',
@@ -38,6 +41,7 @@ export const mockCargas: Carga[] = [
     peso: 2000,
     tipo: 'Maquinário',
     status: 'disponivel',
+     descricao: "Transporte de máquinas para as Lojas Americanas"
   },
   {
     id: '5',
@@ -47,6 +51,7 @@ export const mockCargas: Carga[] = [
     peso: 1200,
     tipo: 'Produtos Químicos',
     status: 'em_andamento',
+      descricao: "Transporte de produtos químicos para as Lojas Americanas"
   },
   {
     id: '6',
@@ -56,6 +61,7 @@ export const mockCargas: Carga[] = [
     peso: 900,
     tipo: 'Livros',
     status: 'concluida',
+    descricao: "Transporte de livros para as Lojas Americanas"
   },
   // Adicione mais cargas mock aqui
 ];

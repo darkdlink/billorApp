@@ -1,36 +1,46 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../types/navigation';
+import Card from '../components/Card';
+import { mockCargas } from '../services/mockCargas'; // Importe os dados mock das cargas
 
-interface RouteParams { // Define os parâmetros esperados da rota
-  cargaId: string;
+// Define o tipo para os params da rota
+type DetalhesCargaRouteProp = RouteProp<RootStackParamList, 'DetalhesCarga'>;
+
+// Define o tipo para as props do componente
+interface Props {
+  route: DetalhesCargaRouteProp;
 }
 
-// Vamos simular a busca dos detalhes da carga
-const getCargaDetails = (id: string) => {
-  // Substitua isso por uma chamada à API real
-  return {
-    id: id,
-    origem: 'São Paulo',
-    destino: 'Rio de Janeiro',
-    peso: 1000,
-    descricao: 'Carga de eletrônicos frágeis.',
-  };
-};
-
-
-const DetalhesCargaScreen = ({ route }: { route: { params: RouteParams } }) => {
+const DetalhesCargaScreen = ({ route }: Props) => {
   const { cargaId } = route.params;
-  const carga = getCargaDetails(cargaId); // Busca os detalhes da carga
+  const navigation = useNavigation();
+
+  // Encontra a carga com base no ID
+  const carga = mockCargas.find(c => c.id === cargaId);
+
+  if (!carga) {
+    return (
+      <View style={styles.container}>
+        <Text>Carga não encontrada!</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Detalhes da Carga</Text>
-      <Text>ID: {carga.id}</Text>
-      <Text>Origem: {carga.origem}</Text>
-      <Text>Destino: {carga.destino}</Text>
-      <Text>Peso: {carga.peso} kg</Text>
-      <Text>Descrição: {carga.descricao}</Text>
-      {/* Adicione aqui botões para aceitar/recusar a carga */}
+      <Text style={styles.header}>Detalhes da Carga</Text>
+      <Card>
+        <Text style={styles.itemTitle}>Origem: {carga.origem}</Text>
+        <Text>Destino: {carga.destino}</Text>
+        <Text>Data: {carga.data}</Text>
+        <Text>Peso: {carga.peso} kg</Text>
+        <Text>Tipo: {carga.tipo}</Text>
+        <Text>Status: {carga.status}</Text>
+        <Text>Descrição: {carga.descricao}</Text>
+      </Card>
+      <Button title="Voltar para Cargas" onPress={() => navigation.goBack()} />
     </View>
   );
 };
@@ -38,12 +48,16 @@ const DetalhesCargaScreen = ({ route }: { route: { params: RouteParams } }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
-  title: {
-    fontSize: 24,
+  header: {
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+  itemTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

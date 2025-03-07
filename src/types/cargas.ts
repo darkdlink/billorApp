@@ -7,4 +7,5 @@ export interface Carga {
     peso: number;
     tipo: string;
     status: 'disponivel' | 'em_andamento' | 'concluida';
+    descricao: string;  // Adicione esta linha
   }

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity } from 'react-native';
 import { fetchCargas } from '../services/cargas';
 import Card from '../components/Card';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface Carga {
   id: string;
@@ -18,6 +20,7 @@ const CargasScreen = () => {
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<'disponivel' | 'em_andamento' | 'concluida' | 'todos'>('todos');
   const [searchTerm, setSearchTerm] = useState('');
+  const navigation = useNavigation();
 
   const loadCargas = useCallback(async () => {
     setLoading(true);
@@ -36,7 +39,12 @@ const CargasScreen = () => {
     loadCargas();
   }, [loadCargas]); // loadCargas como dependência
 
+ const handleCargaPress = (cargaId: string) => {
+    navigation.navigate('DetalhesCarga', { cargaId });
+  };
+
   const renderItem = ({ item }: { item: Carga }) => (
+     <TouchableOpacity onPress={() => handleCargaPress(item.id)}>
     <Card>
       <Text style={styles.itemTitle}>Origem: {item.origem}</Text>
       <Text>Destino: {item.destino}</Text>
@@ -45,6 +53,7 @@ const CargasScreen = () => {
       <Text>Tipo: {item.tipo}</Text>
       <Text>Status: {item.status}</Text>
     </Card>
+     </TouchableOpacity>
   );
 
   return (
