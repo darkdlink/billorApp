@@ -1,6 +1,8 @@
+// src/services/usuarios.ts
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
 import { API_URL } from '../config';
+import { mockProfile } from "./mockProfile"; // <== IMPORTANDO DADOS MOCKADOS
 
 interface UserProfile {
   nome: string;
@@ -8,25 +10,14 @@ interface UserProfile {
   telefone: string;
   fotoURL?: string;
 }
-
+// MODIFICANDO PARA BUSCAR OS DADOS MOCKADOS
 export const fetchUserProfile = async (): Promise<UserProfile> => {
-  try {
-    const user = auth().currentUser;
-    if (!user) {
-      throw new Error('Usuário não autenticado.');
-    }
-
-    const token = await user.getIdToken();
-    const response = await axios.get(`${API_URL}/usuarios/${user.uid}`, {  // Rota para buscar o perfil do usuário
-      headers: {
-        Authorization: `Bearer ${token}`,  // Envie o token de autenticação
-      },
-    });
-    return response.data; // Ajuste conforme a estrutura da sua API
-  } catch (error) {
-    console.error('Erro ao buscar perfil do usuário:', error);
-    throw error;
-  }
+  // simulação de chamada à api
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(mockProfile)
+    }, 500)
+  })
 };
 
 export const updateUserProfile = async (user: UserProfile): Promise<void> => {

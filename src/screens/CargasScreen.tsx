@@ -1,10 +1,8 @@
-// src/screens/CargasScreen.tsx
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { fetchCargas } from '../services/cargas'; // Suponha um arquivo de serviço
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity } from 'react-native';
+import { fetchCargas } from '../services/cargas';
 import Card from '../components/Card';
 
-// Define a interface para uma carga
 interface Carga {
   id: string;
   origem: string;
@@ -12,28 +10,31 @@ interface Carga {
   data: string;
   peso: number;
   tipo: string;
+  status: 'disponivel' | 'em_andamento' | 'concluida';
 }
 
 const CargasScreen = () => {
   const [cargas, setCargas] = useState<Carga[]>([]);
   const [loading, setLoading] = useState(true);
+  const [statusFilter, setStatusFilter] = useState<'disponivel' | 'em_andamento' | 'concluida' | 'todos'>('todos');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const loadCargas = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await fetchCargas({ status: statusFilter, searchTerm: searchTerm });
+      setCargas(data);
+    } catch (error) {
+      console.error('Erro ao buscar cargas:', error);
+      // Lidar com o erro (ex: exibir mensagem ao usuário)
+    } finally {
+      setLoading(false);
+    }
+  }, [statusFilter, searchTerm]);
 
   useEffect(() => {
-    const loadCargas = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchCargas();
-        setCargas(data);
-      } catch (error) {
-        console.error('Erro ao buscar cargas:', error);
-        // Lidar com o erro (ex: exibir mensagem ao usuário)
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadCargas();
-  }, []);
+  }, [loadCargas]); // loadCargas como dependência
 
   const renderItem = ({ item }: { item: Carga }) => (
     <Card>
@@ -42,12 +43,48 @@ const CargasScreen = () => {
       <Text>Data: {item.data}</Text>
       <Text>Peso: {item.peso} kg</Text>
       <Text>Tipo: {item.tipo}</Text>
+      <Text>Status: {item.status}</Text>
     </Card>
   );
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Cargas Disponíveis</Text>
+
+      <View style={styles.filterContainer}>
+        <TouchableOpacity
+          style={[styles.filterButton, statusFilter === 'todos' && styles.filterButtonActive]}
+          onPress={() => setStatusFilter('todos')}
+        >
+          <Text>Todos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.filterButton, statusFilter === 'disponivel' && styles.filterButtonActive]}
+          onPress={() => setStatusFilter('disponivel')}
+        >
+          <Text>Disponível</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.filterButton, statusFilter === 'em_andamento' && styles.filterButtonActive]}
+          onPress={() => setStatusFilter('em_andamento')}
+        >
+          <Text>Em Andamento</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.filterButton, statusFilter === 'concluida' && styles.filterButtonActive]}
+          onPress={() => setStatusFilter('concluida')}
+        >
+          <Text>Concluída</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Pesquisar por ID ou Destino"
+        value={searchTerm}
+        onChangeText={setSearchTerm}
+      />
+
       {loading ? (
         <ActivityIndicator size="large" color="#007AFF" />
       ) : (
@@ -74,6 +111,30 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+  },
+  filterButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+  filterButtonActive: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF',
+  },
+  searchInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
 });
 

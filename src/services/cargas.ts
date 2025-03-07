@@ -1,23 +1,54 @@
 // src/services/cargas.ts
 import axios from 'axios';
 import { API_URL } from '../config';
+import { mockCargas } from './mockCargas'; // Importe os dados mock
+import { Carga } from '../types/cargas';
 
-// Função mock para simular a resposta da API
-const mockCargas = [
-  { id: '1', origem: 'São Paulo', destino: 'Rio de Janeiro', data: '2025-03-08', peso: 1000, tipo: 'Eletrônicos' },
-  { id: '2', origem: 'Belo Horizonte', destino: 'Salvador', data: '2025-03-09', peso: 1500, tipo: 'Alimentos' },
-];
+export interface FetchCargasParams {
+  status?: 'disponivel' | 'em_andamento' | 'concluida' | 'todos';
+  searchTerm?: string;
+}
 
-export const fetchCargas = async () => {
+export const fetchCargas = async (params: FetchCargasParams = {}): Promise<Carga[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let filteredCargas = mockCargas;
+
+      if (params.status && params.status !== 'todos') {
+        filteredCargas = filteredCargas.filter(carga => carga.status === params.status);
+      }
+
+      if (params.searchTerm) {
+        const searchTermLower = params.searchTerm.toLowerCase();
+        filteredCargas = filteredCargas.filter(carga =>
+          carga.id.toLowerCase().includes(searchTermLower) ||
+          carga.destino.toLowerCase().includes(searchTermLower)
+        );
+      }
+
+      resolve(filteredCargas);
+    }, 500); // Simula um atraso da API
+  });
+};
+
+export const uploadDocument = async (imageUri: string) => {
   try {
-    // Simulação de chamada à API (com um atraso)
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(mockCargas);
-      }, 500);
+    const formData = new FormData();
+    formData.append('document', {
+      uri: imageUri,
+      type: 'image/jpeg',
+      name: 'document.jpg',
     });
+
+    const response = await axios.post(`${API_URL}/documentos`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
   } catch (error) {
-    console.error('Erro ao buscar cargas:', error);
+    console.error('Erro ao enviar documento:', error);
     throw error;
   }
 };
